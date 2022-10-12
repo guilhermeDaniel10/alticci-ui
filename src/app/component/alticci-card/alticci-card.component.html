@@ -1,34 +1,57 @@
 <div class="cards">
   <h2 class="header">Alticci Sequence</h2>
-  <div class="services">
-    <div class="content content-1">
-      <div class="fab fa-twitter"></div>
-      <h2>Single Alticci Value</h2>
-      <p>Insert an index n to obtain its value in the alticci sequence.</p>
-      <div>
-        <input type="text" placeholder="Index" />
-      </div>
-      <a (click)="sendValue()">Submit</a>
-    </div>
-    <div class="content content-2">
-      <div class="fab fa-instagram"></div>
-      <h2>Full Alticci Sequence</h2>
-      <p>
-        Insert an index n to obtain the full alticci sequence till the
-        designated index.
-      </p>
-      <div>
-        <input type="text" placeholder="Index" />
-      </div>
 
-      <a (click)="sendValue()">Submit</a>
-    </div>
+  <div class="content content-1">
+    <div class="fab fa-twitter"></div>
+    <h2>Single Alticci Value</h2>
+    <p>Insert an index n to obtain its value in the alticci sequence.</p>
+    <form [formGroup]="formSingle" (ngSubmit)="submitSingle()">
+      <div>
+        <input formControlName="number" class="form-control" type="text" placeholder="Index" />
+      </div>
+      <div class="alerts">
+        <div *ngIf="singleAltici.number.invalid" class="alert">
+          <div *ngIf="singleAltici.number.errors?.pattern && !singleAltici.number.errors?.min">Enter only number.
+          </div>
+          <div *ngIf="singleAltici.number.errors?.min">Must be positive.</div>
+          <div *ngIf="singleAltici.number.errors?.max">Must be smaller than 158.</div>
+        </div>
+      </div>
+      <button class="submit-button" type="submit" [disabled]="!formSingle.valid">Submit</button>
+      <div>
+        {{sequenceValueInIndex}}
+      </div>
+    </form>
+  </div>
+  <div class="content content-2">
+    <div class="fab fa-instagram"></div>
+    <h2>Full Alticci Sequence</h2>
+    <p>
+      Insert an index n to obtain the full alticci sequence till the
+      designated index.
+    </p>
+    <form [formGroup]="formFull" (ngSubmit)="submitFull()">
+      <div>
+        <input formControlName="number" class="form-control" type="text" placeholder="Index" />
+      </div>
+      <div class="alerts">
+        <div *ngIf="fullAlticci.number.invalid" class="alert">
+          <div *ngIf="fullAlticci.number.errors?.pattern && !fullAlticci.number.errors?.min">Enter only number.
+          </div>
+          <div *ngIf="fullAlticci.number.errors?.min">Must be positive.</div>
+          <div *ngIf="fullAlticci.number.errors?.max">Must be smaller than 158.</div>
+        </div>
+      </div>
+      <button class="submit-button" type="submit" [disabled]="!formFull.valid">Submit</button>
+      <div *ngIf="fullSequenceInIndex.length">
+        <div *ngFor="let value of fullSequenceInIndex; index as i">
+          {{fullSequenceString}} {{i}}: {{value.value}}
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 
 <div class="image-altice">
-  <img
-    src="https://conteudos.altice-empresas.pt/Style%20Library/empresarial/images/logo.png"
-    alt="Altice"
-  />
+  <img src="https://conteudos.altice-empresas.pt/Style%20Library/empresarial/images/logo.png" alt="Altice" />
 </div>
